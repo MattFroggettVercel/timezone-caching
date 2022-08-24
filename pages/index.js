@@ -14,7 +14,7 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>Timezone Caching</h1>
 
-        <p>Arsenal vs </p>
+        <p><a href="/fixtures">Fixtures</a></p>
       </main>
 
       <footer className={styles.footer}>
