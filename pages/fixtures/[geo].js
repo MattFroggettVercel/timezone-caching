@@ -2,12 +2,16 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
 
+const timezoneOffset = {
+  NL: 1
+}
+
 export async function getStaticProps({ params }) {
   return {
     props: {
       geo: params.geo
     },
-    revalidate: 60,
+    revalidate: 120,
   }
 }
 
@@ -19,6 +23,12 @@ export async function getStaticPaths() {
 }
 
 export default function Fixtures({ geo }) {
+  const fixtureTime = new Date(2022, 7, 27, 15, 0, 0)
+  const formattedFixtureTime = fixtureTime.toLocaleTimeString('en-GB'.language, {hour: '2-digit', minute:'2-digit'})
+
+  const localTime = new Date(fixtureTime.setHours(fixtureTime.getHours() + (timezoneOffset[geo] || 0)))
+  const formattedLocalTime = localTime.toLocaleTimeString('en-GB'.language, {hour: '2-digit', minute:'2-digit'})
+
   return (
     <div className={styles.container}>
       <Head>
@@ -30,7 +40,7 @@ export default function Fixtures({ geo }) {
       <main className={styles.main}>
         <h1 className={styles.title}>Arsenal vs Chelsea</h1>
 
-        <p>15:00 BST - your local time in { geo }</p>
+        <p>{formattedFixtureTime} BST - ({formattedLocalTime} { geo } time)</p>
       </main>
 
       <footer className={styles.footer}>
