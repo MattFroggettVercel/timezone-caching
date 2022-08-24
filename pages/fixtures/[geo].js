@@ -1,8 +1,24 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../../styles/Home.module.css'
 
-export default function Home() {
+export async function getStaticProps({ params }) {
+  return {
+    props: {
+      geo: params.geo
+    },
+    revalidate: 60,
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
+}
+
+export default function Fixtures({ geo }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,9 +28,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Timezone Caching</h1>
+        <h1 className={styles.title}>Arsenal vs Chelsea</h1>
 
-        <p>Arsenal vs </p>
+        <p>15:00 BST - your local time in { geo }</p>
       </main>
 
       <footer className={styles.footer}>
