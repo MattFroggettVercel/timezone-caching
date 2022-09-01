@@ -12,6 +12,10 @@ export async function middleware(req) {
   if (nextUrl.pathname === '/fixtures') {
     nextUrl.pathname = `/fixtures/${country}`
 
-    return NextResponse.rewrite(nextUrl)
+    const response = NextResponse.rewrite(nextUrl)
+
+    response.cookies.set('_vercel_no_cache', 1)
+
+    return response
   }
 }
